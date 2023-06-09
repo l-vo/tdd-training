@@ -8,15 +8,9 @@ class Money
     {
     }
 
-    public function plus(self $addend): self
+    public function plus(self $addend, Bank $bank): self
     {
-        if ($this->currency === 'USD' && $addend->currency === 'CHF') {
-            $rate = .5;
-        } elseif($this->currency === 'CHF' && $addend->currency === 'USD') {
-            $rate = 2;
-        } else {
-            $rate = 1;
-        }
+        $rate = $bank->getRate($addend->currency, $this->currency);
 
         return new static($addend->amount * $rate + $this->amount, $this->currency);
     }
