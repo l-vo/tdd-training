@@ -20,9 +20,10 @@ final class MoneyTest extends TestCase
     public function testEquals(): void
     {
         $dollar = MoneyFactory::dollar(5);
-        $this->assertTrue($dollar->equals(MoneyFactory::dollar(5)));
-        $this->assertFalse($dollar->equals(MoneyFactory::dollar(6)));
-        $this->assertFalse($dollar->equals(MoneyFactory::franc(5)));
+        $this->assertTrue($dollar->equals(MoneyFactory::dollar(5), $this->bank));
+        $this->assertFalse($dollar->equals(MoneyFactory::dollar(6), $this->bank));
+        $this->assertFalse($dollar->equals(MoneyFactory::franc(5), $this->bank));
+        $this->assertTrue($dollar->equals(MoneyFactory::franc(10), $this->bank));
     }
 
     public function testSimpleDollarAddition(): void
@@ -30,7 +31,7 @@ final class MoneyTest extends TestCase
         $dollar = MoneyFactory::dollar(6);
         $dollar = $dollar->plus(MoneyFactory::dollar(6), $this->bank);
 
-        $this->assertTrue($dollar->equals(MoneyFactory::dollar(12)));
+        $this->assertTrue($dollar->equals(MoneyFactory::dollar(12), $this->bank));
     }
 
     public function testSimpleFrancAddition(): void
@@ -38,17 +39,17 @@ final class MoneyTest extends TestCase
         $franc = MoneyFactory::franc(6);
         $franc = $franc->plus(MoneyFactory::franc(6), $this->bank);
 
-        $this->assertTrue($franc->equals(MoneyFactory::franc(12)));
+        $this->assertTrue($franc->equals(MoneyFactory::franc(12), $this->bank));
     }
 
     public function testMixedAddition(): void
     {
         $dollar = MoneyFactory::dollar(6);
         $dollar = $dollar->plus(MoneyFactory::franc(6), $this->bank);
-        $this->assertTrue($dollar->equals(MoneyFactory::dollar(9)));
+        $this->assertTrue($dollar->equals(MoneyFactory::dollar(9), $this->bank));
 
         $franc = MoneyFactory::franc(6);
         $franc = $franc->plus(MoneyFactory::dollar(6), $this->bank);
-        $this->assertTrue($franc->equals(MoneyFactory::franc(18)));
+        $this->assertTrue($franc->equals(MoneyFactory::franc(18), $this->bank));
     }
 }

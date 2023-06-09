@@ -15,8 +15,10 @@ class Money
         return new static($addend->amount * $rate + $this->amount, $this->currency);
     }
 
-    public function equals(self $compare): bool
+    public function equals(self $compare, Bank $bank): bool
     {
-        return $this->currency === $compare->currency && $compare->amount === $this->amount;
+        $rate = $bank->getRate($compare->currency, $this->currency);
+
+        return intval($compare->amount * $rate) === $this->amount;
     }
 }
