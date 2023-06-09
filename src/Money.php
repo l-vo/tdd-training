@@ -10,7 +10,15 @@ class Money
 
     public function plus(self $addend): self
     {
-        return new static($addend->amount + $this->amount, $this->currency);
+        if ($this->currency === 'USD' && $addend->currency === 'CHF') {
+            $rate = .5;
+        } elseif($this->currency === 'CHF' && $addend->currency === 'USD') {
+            $rate = 2;
+        } else {
+            $rate = 1;
+        }
+
+        return new static($addend->amount * $rate + $this->amount, $this->currency);
     }
 
     public function equals(self $compare): bool

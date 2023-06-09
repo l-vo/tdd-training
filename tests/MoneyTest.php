@@ -30,4 +30,15 @@ final class MoneyTest extends TestCase
 
         $this->assertTrue($franc->equals(MoneyFactory::franc(12)));
     }
+
+    public function testMixedAddition(): void
+    {
+        $dollar = MoneyFactory::dollar(6);
+        $dollar = $dollar->plus(MoneyFactory::franc(6));
+        $this->assertTrue($dollar->equals(MoneyFactory::dollar(9)));
+
+        $franc = MoneyFactory::franc(6);
+        $franc = $franc->plus(MoneyFactory::dollar(6));
+        $this->assertTrue($franc->equals(MoneyFactory::franc(18)));
+    }
 }
