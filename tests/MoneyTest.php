@@ -12,6 +12,7 @@ final class MoneyTest extends TestCase
         $dollar = MoneyFactory::dollar(5);
         $this->assertTrue($dollar->equals(MoneyFactory::dollar(5)));
         $this->assertFalse($dollar->equals(MoneyFactory::dollar(6)));
+        $this->assertFalse($dollar->equals(MoneyFactory::franc(5)));
     }
 
     public function testSimpleDollarAddition(): void

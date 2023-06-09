@@ -15,6 +15,6 @@ abstract class Money
 
     public function equals(self $compare): bool
     {
-        return $compare->amount === $this->amount;
+        return static::class === $compare::class && $compare->amount === $this->amount;
     }
 }
