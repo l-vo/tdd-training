@@ -2,7 +2,7 @@
 
 namespace App\TddTraining;
 
-abstract class Money
+class Money
 {
     public function __construct(private int $amount, private string $currency)
     {
