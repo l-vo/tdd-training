@@ -10,6 +10,6 @@ final class Dollar
 
     public function equals(self $compare): bool
     {
-        return $compare->amount === 5;
+        return $compare->amount === $this->amount;
     }
 }
